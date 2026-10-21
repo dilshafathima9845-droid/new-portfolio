@@ -1,0 +1,112 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ink: var(--ink);
+  --color-ink-foreground: var(--ink-foreground);
+  --color-mocha: var(--mocha);
+  --color-sand: var(--sand);
+}
+
+:root {
+  --radius: 0.75rem;
+  /* Cream & mocha palette from reference */
+  --background: oklch(0.95 0.008 75);
+  --foreground: oklch(0.24 0.02 60);
+  --card: oklch(0.98 0.005 75);
+  --card-foreground: oklch(0.24 0.02 60);
+  --popover: oklch(0.98 0.005 75);
+  --popover-foreground: oklch(0.24 0.02 60);
+  --primary: oklch(0.52 0.045 65);
+  --primary-foreground: oklch(0.97 0.006 75);
+  --secondary: oklch(0.9 0.015 75);
+  --secondary-foreground: oklch(0.24 0.02 60);
+  --muted: oklch(0.91 0.012 75);
+  --muted-foreground: oklch(0.5 0.02 65);
+  --accent: oklch(0.82 0.03 70);
+  --accent-foreground: oklch(0.24 0.02 60);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.84 0.015 70);
+  --input: oklch(0.84 0.015 70);
+  --ring: oklch(0.52 0.045 65);
+  --ink: oklch(0.2 0.018 60);
+  --ink-foreground: oklch(0.94 0.01 75);
+  --mocha: oklch(0.52 0.045 65);
+  --sand: oklch(0.82 0.03 70);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: auto; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: var(--font-serif); }
+}
+
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--mocha);
+}
+@utility text-outline-light {
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--ink-foreground) 40%, transparent);
+}
+@utility grid-lines {
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--mocha) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--mocha) 12%, transparent) 1px, transparent 1px);
+  background-size: 80px 80px;
+}
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@keyframes marquee { to { transform: translateX(-50%); } }
+@utility animate-marquee { animation: marquee 40s linear infinite; }
+@utility animate-marquee-fast { animation: marquee 22s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
